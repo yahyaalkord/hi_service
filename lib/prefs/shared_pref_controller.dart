@@ -26,11 +26,12 @@ class SharedPrefController {
     await _sharedPreferences.setString(PrefKeys.mobile.name, user.mobile);
     await _sharedPreferences.setString(PrefKeys.imageUrl.name, "https://png.pngtree.com/element_our/png/20181206/users-vector-icon-png_260862.jpg");
     await _sharedPreferences.setString(PrefKeys.token.name, 'Bearer ${user.token}');
-    print(_sharedPreferences.get(PrefKeys.token.name));
+    // print(_sharedPreferences.get(PrefKeys.token.name));
   }
 
   User getUser() {
     User user = User();
+    user.token = _sharedPreferences.getString(PrefKeys.token.name)!;
     user.id =  _sharedPreferences.getInt(PrefKeys.id.name)!;
     user.name =  _sharedPreferences.getString(PrefKeys.name.name)!;
     user.email =  _sharedPreferences.getString(PrefKeys.email.name)!;
@@ -40,8 +41,8 @@ class SharedPrefController {
   }
 
   T? getValueFor<T>({required String key}) {
-    print('shared');
-    print('yahya ${_sharedPreferences.get(key)}');
+    // print('shared');
+    // print('yahya ${_sharedPreferences.get(key)}');
     if(_sharedPreferences.containsKey(key)) {
       return _sharedPreferences.get(key) as T?;
     }

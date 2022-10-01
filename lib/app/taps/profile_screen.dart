@@ -39,7 +39,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void dispose() {
     // TODO: implement dispose
-    print('disposep');
+    // print('disposep');
     Get.delete<EditProfileGetxController>(force: true);
     _nameController.dispose();
     _emailController.dispose();
@@ -51,7 +51,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(body: GetBuilder<EditProfileGetxController>(
       builder: (controller) {
-        print(controller.user.imageUrl);
+        // print(controller.user.imageUrl);
         return ListView(
           padding: const EdgeInsetsDirectional.only(top: 0),
           children: [
@@ -147,6 +147,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       keyboardType: TextInputType.text,
                                       controller: _nameController,
                                       onPress: () {
+
                                         _name();
                                       },
                                     );

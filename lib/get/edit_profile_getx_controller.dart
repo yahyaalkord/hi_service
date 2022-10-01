@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:hi_service/api/auth_api_controller.dart';
 import 'package:hi_service/models/api_response.dart';
-
 import '../models/user.dart';
 import '../prefs/shared_pref_controller.dart';
 

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:hi_service/api/api_settings.dart';
+import 'package:hi_service/models/favorite_professions.dart';
 import 'package:hi_service/models/profession.dart';
 import 'package:hi_service/prefs/shared_pref_controller.dart';
 import 'package:http/http.dart' as http;
@@ -58,7 +59,7 @@ class ProfessionApiController{
     return [];
   }
 
-  Future<List<Profession>> getFavoriteProfession() async {
+  Future<List<FavoriteProfessios>> getFavoriteProfession() async {
     Uri uri = Uri.parse(ApiSettings.favoriteProfession);
     var response = await http.get(uri, headers: {
       HttpHeaders.authorizationHeader: token,
@@ -68,7 +69,7 @@ class ProfessionApiController{
       var json = jsonDecode(response.body);
       var dataJsonObject = json['data'] as List;
       return dataJsonObject
-          .map((jsonObject) => Profession.fromJson(jsonObject))
+          .map((jsonObject) => FavoriteProfessios.fromJson(jsonObject))
           .toList();
     }
     return [];

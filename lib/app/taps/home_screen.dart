@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hi_service/get/favorite_prof_getx_controller.dart';
 import 'package:hi_service/get/home_getx_controoler.dart';
 import 'package:hi_service/get/profession_getx_controller.dart';
 import 'package:hi_service/get/subCategorise_getx_controller.dart';
@@ -24,6 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   HomeGetController controller = Get.put(HomeGetController());
   final categoryController = Get.lazyPut(() => CategoryGetController(),fenix: true);
   final subCategoryGetController = Get.lazyPut(() => SubCategoryGetController(),fenix: true);
+  final favoriteProfController = Get.lazyPut(() => FavoriteProfController(),fenix: true);
   late TextEditingController _searchController;
 
   @override
@@ -37,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void dispose() {
     // TODO: implement dispose
     _searchController.dispose();
-    print('aaaa');
+    // print('aaaa');
     super.dispose();
   }
 
