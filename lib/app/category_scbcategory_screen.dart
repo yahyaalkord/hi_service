@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hi_service/api/category_sub_category_api_controller.dart';
+import 'package:hi_service/app/profession_screen.dart';
 import 'package:hi_service/get/categorise_getx_controoler.dart';
 import 'package:hi_service/get/categorise_subCategorise_getx_controller.dart';
 import 'package:hi_service/get/subCategorise_getx_controller.dart';
@@ -78,32 +79,39 @@ class _CategorySubCategoriesScreenState
                   childAspectRatio: 0.9,
                 ),
                 itemBuilder: (context, index) {
-                  return Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.r)),
-                    clipBehavior: Clip.antiAlias,
-                    child: Stack(
-                      children: [
-                        Image(
-                          image:
-                          NetworkImage(subcategory[index].imageUrl),
-                          fit: BoxFit.cover,
-                          height: double.infinity,
-                          width: double.infinity,
-                        ),
-                        Align(
-                          alignment: AlignmentDirectional.bottomStart,
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 10.w, vertical: 10.h),
-                            child: Text(
-                              subcategory[index].title,
-                              style: GoogleFonts.nunitoSans(
-                                  color: Colors.white),
-                            ),
+                  return InkWell(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) {
+                        return ProfessionScreen(subCategoriseId: subcategory[index].id,);
+                      },));
+                    },
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.r)),
+                      clipBehavior: Clip.antiAlias,
+                      child: Stack(
+                        children: [
+                          Image(
+                            image:
+                            NetworkImage(subcategory[index].imageUrl),
+                            fit: BoxFit.cover,
+                            height: double.infinity,
+                            width: double.infinity,
                           ),
-                        )
-                      ],
+                          Align(
+                            alignment: AlignmentDirectional.bottomStart,
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 10.w, vertical: 10.h),
+                              child: Text(
+                                subcategory[index].title,
+                                style: GoogleFonts.nunitoSans(
+                                    color: Colors.white),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   );
                 });

@@ -14,6 +14,7 @@ import 'package:hi_service/auth/forget_password_screen.dart';
 import 'package:hi_service/auth/login_screen.dart';
 import 'package:hi_service/auth/register_screen.dart';
 import 'package:hi_service/auth/resrt_password_screen.dart';
+import 'package:hi_service/helpers/app_color.dart';
 import 'package:hi_service/prefs/shared_pref_controller.dart';
 import 'app/taps/categories_screen.dart';
 import 'auth/verify_screen.dart';
@@ -53,7 +54,7 @@ class MyApp extends StatelessWidget {
           locale:  const Locale('en'),
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-            scaffoldBackgroundColor:  const Color(0XFFe3f2fd),
+            scaffoldBackgroundColor:  const Color(0XFFeceff1),
             appBarTheme: AppBarTheme(
               centerTitle: true,
               elevation: 0,
@@ -64,7 +65,7 @@ class MyApp extends StatelessWidget {
               titleTextStyle: GoogleFonts.poppins(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-                color: const Color(0XFF7210FF),
+                color:  const Color(0XFF49a7cc),
               ),
             ),
           ),

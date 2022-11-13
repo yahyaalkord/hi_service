@@ -1,20 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hi_service/api/profession_api_controller.dart';
+import 'package:hi_service/get/favorite_prof_getx_controller.dart';
+import 'package:hi_service/models/api_response.dart';
 import 'package:hi_service/models/profession.dart';
+import 'package:hi_service/utils/extenssion.dart';
 import 'package:hi_service/widget/app_elevation_button.dart';
 
 import '../helpers/app_color.dart';
 
 class ProfessionsDetails extends StatefulWidget {
-  const ProfessionsDetails({required this.profession,Key? key}) : super(key: key);
+  const ProfessionsDetails({required this.profession, this.path, Key? key})
+      : super(key: key);
+  final String? path;
   final Profession profession;
+
   @override
   State<ProfessionsDetails> createState() => _ProfessionsDetailsState();
 }
 
 class _ProfessionsDetailsState extends State<ProfessionsDetails> {
+  // FavoriteProfGetxController controller = FavoriteProfGetxController.to;
   bool _fav = false;
+
+  @override
+  void initState() {
+    widget.path != null ? _fav = true : _fav = false;
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +43,8 @@ class _ProfessionsDetailsState extends State<ProfessionsDetails> {
               Container(
                 height: 180.h,
                 width: double.infinity,
-                child:  Image(
-                  image:  NetworkImage(widget.profession.imageUrl),
+                child: Image(
+                  image: NetworkImage(widget.profession.imageUrl),
                   height: double.infinity,
                   width: double.infinity,
                   fit: BoxFit.fill,
@@ -62,7 +78,7 @@ class _ProfessionsDetailsState extends State<ProfessionsDetails> {
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(10.r),
                             ),
-                            child:  Image(
+                            child: Image(
                               image: NetworkImage(widget.profession.imageUrl),
                               height: double.infinity,
                               width: double.infinity,
@@ -105,8 +121,12 @@ class _ProfessionsDetailsState extends State<ProfessionsDetails> {
                       padding: EdgeInsets.symmetric(
                           horizontal: 15.w, vertical: 20.h),
                       decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(topLeft: Radius.circular(20.r),topRight: Radius.circular(20.r),),),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20.r),
+                          topRight: Radius.circular(20.r),
+                        ),
+                      ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -182,6 +202,7 @@ class _ProfessionsDetailsState extends State<ProfessionsDetails> {
                                   setState(() {
                                     _fav = !_fav;
                                   });
+                                  _addFavorite();
                                 },
                                 icon: Icon(
                                   _fav ? Icons.favorite : Icons.favorite_border,
@@ -201,7 +222,9 @@ class _ProfessionsDetailsState extends State<ProfessionsDetails> {
                     padding: EdgeInsetsDirectional.only(
                         bottom: 10.h, start: 20.w, end: 20.w),
                     child: ElevatedButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        _callNumber();
+                      },
                       icon: const Icon(Icons.call),
                       label: Text(
                         'CallMy',
@@ -211,7 +234,8 @@ class _ProfessionsDetailsState extends State<ProfessionsDetails> {
                       ),
                       style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20.r),),
+                            borderRadius: BorderRadius.circular(20.r),
+                          ),
                           primary: AppColors.primary,
                           minimumSize: Size(double.infinity, 50.h)),
                     ),
@@ -223,5 +247,24 @@ class _ProfessionsDetailsState extends State<ProfessionsDetails> {
         ],
       ),
     );
+  }
+
+  void _addFavorite() async {
+    if (_fav == true) {
+      var response = await ProfessionApiController()
+          .addFavoriteProfessions(id: widget.profession.id.toString());
+      context.showSnackBar(message: response.message, error: !response.success);
+    }
+  }
+
+/*  void _deleteFavorite(BuildContext context , int index) async{
+    if(_fav == false){
+      ApiResponse apiResponse = await FavoriteProfGetxController.to.deleteFavorite(index: index);
+    }
+
+  }*/
+
+  void _callNumber() async {
+    await FlutterPhoneDirectCaller.callNumber(widget.profession.mobile);
   }
 }

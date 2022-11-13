@@ -18,4 +18,6 @@ class ApiSettings {
   static const String favoriteProfession ='${_baseUrl}favorite-profession';
   static const String edit ='${_baseUrl}auth/profile-{name}';
   static const String changePassword ='${_baseUrl}auth/change-password';
+  static const String addProfessions ='${_baseUrl}favorite-profession';
+  static const String deleteProfessions ='${_baseUrl}favorite-profession/{id}';
 }

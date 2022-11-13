@@ -69,8 +69,7 @@ class AuthApiController with ApiHelper {
     return ApiResponse('Somthing wrong', false);
   }
 
-  Future<ApiResponse> resetPassword(
-      {required email,
+  Future<ApiResponse> resetPassword({required email,
       required code,
       required password,
       required confirmPassword}) async {

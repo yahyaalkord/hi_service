@@ -11,7 +11,7 @@ class FavoriteProfessios {
  late String gender;
  late int subCategoryId;
  late String imageUrl;
-  Pivot? pivot;
+  late List<Pivot> pivot;
 
   FavoriteProfessios();
 
@@ -28,7 +28,8 @@ class FavoriteProfessios {
     gender = json['gender'];
     subCategoryId = json['sub_category_id'];
     imageUrl = json['image_url'];
-    pivot = json['pivot'] != null ? new Pivot.fromJson(json['pivot']): null;
+    var pivotJson = json['pivot'] as List;
+    pivot = pivotJson.map<Pivot>((e) => Pivot.fromJson(e)).toList();
 
   }
 

@@ -21,6 +21,7 @@ class CategoriesScreen extends StatefulWidget {
 class _CategoriesScreenState extends State<CategoriesScreen> {
   CategoryGetController controller = CategoryGetController.to;
   late TextEditingController _searchController;
+
   // List<Categorise> categorise = <Categorise>[];
 
   @override
@@ -44,90 +45,91 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         title: const Text('Categories'),
       ),
       body: ListView(
-          padding: EdgeInsets.symmetric(horizontal: 15.w),
-          shrinkWrap: true,
-          children: [
+        padding: EdgeInsets.symmetric(horizontal: 15.w),
+        shrinkWrap: true,
+        children: [
           AppTextField(
-          onChange: (value)
-      {
-      controller.counter.value = value;
-      },
-      hint: 'Searching...',
-      prefixIcon: Icons.search_rounded,
-      keyboardType: TextInputType.text,
-      controller: _searchController,
-    ),
-    SizedBox(
-    height: 30.h,
-    ),
-    controller.obx(
-    onLoading: const Center(child:  CircularProgressIndicator()),
-    onEmpty:  Text("noData",style: GoogleFonts.poppins(fontSize: 22.sp,fontWeight: FontWeight.bold),),
-    (state)  {
-      var category = state!;
-      return  GridView.builder(
-          physics: const NeverScrollableScrollPhysics(),
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          itemCount: category.length,
-          gridDelegate:
-          const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-            childAspectRatio: 0.9,
+            onChange: (value) {
+              controller.counter.value = value;
+            },
+            hint: 'Searching...',
+            prefixIcon: Icons.search_rounded,
+            keyboardType: TextInputType.text,
+            controller: _searchController,
           ),
-          itemBuilder: (context, index) {
-            return InkWell(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          CategorySubCategoriesScreen(
-                              id: category[index].id),
-                    ));
-              },
-              child: Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.r)),
-                clipBehavior: Clip.antiAlias,
-                child: Stack(
-                  children: [
-                    Image(
-                      image: NetworkImage(category[index].imageUrl),
-                      fit: BoxFit.cover,
-                      height: double.infinity,
-                      width: double.infinity,
-                    ),
-                    Align(
-                      alignment: AlignmentDirectional.bottomStart,
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 10.w, vertical: 10.h),
-                        child: Text(
-                          category[index].title,
-                          style: GoogleFonts.nunitoSans(
-                              color: Colors.white),
+          SizedBox(
+            height: 30.h,
+          ),
+          controller.obx(
+            onLoading: const Center(child: CircularProgressIndicator()),
+            onEmpty: Center(
+              child: Text(
+                "noData",
+                style: GoogleFonts.poppins(
+                    fontSize: 22.sp, fontWeight: FontWeight.bold),
+              ),
+            ),
+            (state) {
+              var category = state!;
+              return GridView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: category.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                    childAspectRatio: 0.9,
+                  ),
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CategorySubCategoriesScreen(
+                                  id: category[index].id),
+                            ));
+                      },
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.r)),
+                        clipBehavior: Clip.antiAlias,
+                        child: Stack(
+                          children: [
+                            Image(
+                              image: NetworkImage(category[index].imageUrl),
+                              fit: BoxFit.cover,
+                              height: double.infinity,
+                              width: double.infinity,
+                            ),
+                            Align(
+                              alignment: AlignmentDirectional.bottomStart,
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 10.w, vertical: 10.h),
+                                child: Text(
+                                  category[index].title,
+                                  style: GoogleFonts.nunitoSans(
+                                      color: Colors.white),
+                                ),
+                              ),
+                            )
+                          ],
                         ),
                       ),
-                    )
-                  ],
-                ),
-              ),
-            );
-          });
-    },
-    ),
-    /*  <CategoryGetController>(
+                    );
+                  });
+            },
+          ),
+          /*  <CategoryGetController>(
             builder: (controller) {
 
               }
           )*/
-    ],
-    ),
+        ],
+      ),
     );
-    }
-
+  }
 }
-

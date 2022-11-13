@@ -28,6 +28,7 @@ class SharedPrefController {
     await _sharedPreferences.setString(PrefKeys.token.name, 'Bearer ${user.token}');
     // print(_sharedPreferences.get(PrefKeys.token.name));
   }
+}
 
   User getUser() {
     User user = User();
